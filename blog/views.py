@@ -29,16 +29,9 @@ def post_list(request):
 def post_detail(request, slug):
   template_name = 'post_detail.html'
   post = get_object_or_404(Post, slug=slug)
-  comments = post.comments.filter(active=True).order_by('-created_on')
-  # page = request.GET.get('page', 1)
-  # paginator = Paginator(comments, 5)
+  comments = post.comments.filter(active=True).order_by('-created_on')  
   new_comment = None
-  # try:
-  #   comments_list = paginator.page(page)
-  # except PageNotAnInteger:
-  #   comments_list = paginator.page(1)
-  # except EmptyPage:
-  #   comments_list = paginator.page(paginator.num_pages)
+  
   # Comment posted
   if request.method == 'POST':
     comment_form = CommentForm(data=request.POST)
@@ -49,7 +42,6 @@ def post_detail(request, slug):
       new_comment.post = post
       # Save the comment to the database
       new_comment.save()
-      # return redirect('blog:home')
   else:
     comment_form = CommentForm()
   return render(request, template_name, {
@@ -57,5 +49,4 @@ def post_detail(request, slug):
     'comments': comments,
     'new_comment': new_comment,
     'comment_form': comment_form
-    # 'comments_list': comments_list
   })

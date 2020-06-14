@@ -9,7 +9,7 @@
         <div class="card-body">
           <h1>{% block title %} {{ post.title }} {% endblock title %}</h1>
           <p class=" text-muted">{{ post.author }} | {{ post.created_on }}</p>
-          <p class="card-text ">{{ post.content | safe }}</p>
+          <p class="card-text ">{{ post.content | safe }}</p>          
         </div>
       </div>
       {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
@@ -39,21 +39,26 @@
       </div>      
     </div>
     <div class="col-md-8 card mb-4  mt-3 ">
-      <div class="card-body">
-        {% if new_comment %}
-        <div class="alert alert-success" role="alert">
-          Your comment is awaiting moderation
-        </div>
-        {% else %}
+      <div class="card-body">        
         <h3>Leave a comment</h3>
         <form method="post" style="margin-top: 1.3em;">
-          {{ comment_form | crispy }}
           {% csrf_token %}
-          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+          {{ comment_form | crispy }}
+          <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         </form>
+        {% if messages %}
+          <div class="alert alert-success alert-dismissible" role="alert">
+            {% for message in messages %} <p>{{message}}</p>{% endfor %}
+          </div>
         {% endif %}
       </div>
     </div>
   </div>
+  <!-- prevent resubmit comment when refresh browser -->
+  <script>
+    if ( window.history.replaceState ) {
+    window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
   <script src="{% static '/js/comment_pagination.js' %}"></script>
 {% endblock %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 STATUS = (
@@ -12,7 +14,9 @@ class Post(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete= models.CASCADE,related_name='blog_posts')
     updated_on = models.DateTimeField(auto_now= True)
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
+    # content = models.TextField()
+    likes = models.ManyToManyField(User, related_name='post_like')
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
 
@@ -20,7 +24,10 @@ class Post(models.Model):
         ordering = ['-created_on']
 
     def __str__(self):
-        return self.title
+        return self.title + ' | ' + str(self.author)
+    
+    def get_absolute_url(self):
+        return reverse('blog:home')
 
 class Comment(models.Model):
     # many-to-one relationship
@@ -28,7 +35,8 @@ class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
+    # body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     active = models.BooleanField(default=False)
 
@@ -37,3 +45,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+    def get_absolute_url(self):
+        return reverse('blog:home')

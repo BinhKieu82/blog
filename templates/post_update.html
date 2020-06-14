@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Update Article{% endblock %}
+{% block content %}
+
+<div class="container">  
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <h2>Update Article</h2>
+  <!--enctype is for uploading media data-->
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-secondary" value="Update">
+      </form>
+    </div>
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+  </div>
+</div>
+<script src="{% static '/js/slugify.js' %}"></script>
+{% endblock %}

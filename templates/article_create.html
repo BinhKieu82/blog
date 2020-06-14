@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create New Article{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<div class="container">  
+  <div class="row">
+    <div class="col-md-8 card mb-4  mt-3 left  top">
+      <h2>Create new article</h2>
+  <!--enctype is for uploading media data-->
+      <form action="{% url 'blog:create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <input type="submit" class="btn btn-primary" value="Create">
+      </form>
+    </div>
+    {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}
+  </div>
+</div>
+<script src="{% static '/js/slugify.js' %}"></script>
+{% endblock %}

@@ -16,15 +16,14 @@
   }
 </style>
 
-<header class="masthead">
+<header class="masthead" id="ssm">
   <div class="overlay"></div>
-  <div class="container">
+  <div class="container" id="banner-header">
     <div class="row">
       <div class=" col-md-8 col-md-10 mx-auto">
         <div class="site-heading">
-          <h3 class=" site-heading my-4 mt-3 text-white"> Welcome to BruceKieu Blog </h3>
-          <p class="text-light">Let's code together..! &nbsp
-          </p>
+          <h2 class=" site-heading my-4 mt-3 text-white"> Welcome to Bruce Kieu Blog </h2>
+          <p class="text-light">Let's code together..! &nbsp</p>
         </div>
       </div>
     </div>
@@ -39,7 +38,8 @@
         <div class="card-body">
           <h2 class="card-title">{{ post.title }}</h2>
           <p class="card-text text-muted h6">{{ post.author }} | {{ post.created_on}} 
-            <a href="{% url 'blog:update' post.slug %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'blog:update' post.slug %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'blog:delete' post.slug %}" class="btn btn-danger">Delete</a>
           </p>
           <!-- only display upto 200 letters -->
           <p class="card-text">{{post.content|slice:":200" }}</p>

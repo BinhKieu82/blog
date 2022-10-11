@@ -1,5 +1,6 @@
 from django.views import generic
 from .models import Post
+from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import CommentForm, PostForm, UpdatePostForm
 from django.shortcuts import render, get_object_or_404, redirect
@@ -14,6 +15,15 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 #   model = Post
 #   form_class = PostForm
 #   template_name = 'article_create.html'
+
+def about(request):
+  return render(request, 'about.html', {})
+
+def policy(request):
+  return render(request, 'policy.html', {})
+
+def contact(request):
+  return render(request, 'contact.html', {})
 
 def post_list(request):
   object_list = Post.objects.filter(status=1).order_by('-created_on')
@@ -87,4 +97,9 @@ class UpdateArticle(generic.UpdateView):
   model = Post
   template_name = 'post_update.html'
   fields = ['title', 'slug', 'content']
+  
+class DeleteArticle(generic.DeleteView):
+  model = Post
+  template_name = 'post_delete.html'
+  success_url = reverse_lazy('blog:home')
   

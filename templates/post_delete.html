@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Update Article{% endblock %}
+{% block title %}Delete Article{% endblock %}
 {% block content %}
 
 <div class="container-fluid">  
   <div class="row">
-    <div class="col-md-8 card mb-4  mt-3 left  top">
-      <h2>Update Article</h2>
+    <div class="col-md-8 card mb-4  mt-3 left form-group">
+      <h2>Delete: {{ post.title }}</h2>
   <!--enctype is for uploading media data-->
       <form method="post" style="margin-top: 1.3em;">
         {% csrf_token %}
-        {{ form.media }}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-secondary" value="Update">
+        <strong>Confirm delete?</strong><br/>
+        <input type="submit" class="btn btn-secondary" value="Delete">
       </form>
     </div>
     {% block sidebar %} {% include 'sidebar.html' %} {% endblock sidebar %}

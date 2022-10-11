@@ -81,6 +81,20 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'sql_server.pyodbc',
+    #     'HOST': "localhost",
+    #     'USER': "binhkn",
+    #     'PASSWORD': "1234abcd",
+    #     'NAME': "BlogBK", #database name
+    #     'PORT': 1433,
+    #     'AUTOCOMMIT': True,
+    #     'OPTIONS': {
+    #         'driver' : 'SQL Server Native Client 11.0',
+    #         'MARS_Connection' : True,
+    #         'driver_supports_utf8' : True,
+    #     },
+    # }
 }
 
 
